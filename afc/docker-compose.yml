@@ -1,0 +1,13 @@
+# Optional: PostgreSQL for local development  ->  docker compose up -d
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: afc_db
+      POSTGRES_USER: afc_user
+      POSTGRES_PASSWORD: afc_pass
+    ports: ["5432:5432"]
+    volumes: [afc_pgdata:/var/lib/postgresql/data]
+volumes:
+  afc_pgdata:

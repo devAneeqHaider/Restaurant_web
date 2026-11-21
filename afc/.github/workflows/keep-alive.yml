@@ -1,0 +1,41 @@
+name: Keep Render backend awake
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check backend health endpoint
+        shell: bash
+        env:
+          BACKEND_HEALTH_URL: ${{ secrets.BACKEND_HEALTH_URL }}
+        run: |
+          if [[ -z "$BACKEND_HEALTH_URL" ]]; then
+            echo "::error::Set the BACKEND_HEALTH_URL repository secret."
+            exit 1
+          fi
+
+          if ! http_status="$(curl \
+            --location \
+            --silent \
+            --show-error \
+            --output /dev/null \
+            --write-out '%{http_code}' \
+            --connect-timeout 15 \
+            --max-time 75 \
+            -- "$BACKEND_HEALTH_URL")"; then
+            echo "::error::The health request failed or timed out."
+            exit 1
+          fi
+
+          if [[ ! "$http_status" =~ ^2[0-9][0-9]$ ]]; then
+            echo "::error::Health endpoint returned HTTP $http_status."
+            exit 1
+          fi
+
+          echo "Health endpoint returned HTTP $http_status."
