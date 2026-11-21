@@ -3,6 +3,8 @@ import { ImagePlus, KeyRound, Save, UserRound } from "lucide-react";
 import { api, setToken } from "../api";
 import PasswordInput from "../components/PasswordInput";
 import PageHead from "./PageHead";
+import { resolveMediaUrl } from "../util";
+{(logoPreview || siteSettings?.logo) ? <img src={resolveMediaUrl(logoPreview || siteSettings.logo)} alt="Website logo preview" /> : <ImagePlus size={28} />}
 
 export default function Profile() {
   const [account, setAccount] = useState(null);

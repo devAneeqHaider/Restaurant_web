@@ -24,6 +24,16 @@ export function categoryDefault(name) {
   return defaultImage({ name, category_name: name });
 }
 
+export function resolveMediaUrl(url) {
+  if (!url) return url;
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) return url;
+  if (url.startsWith("/media/")) {
+    const base = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+    return base ? `${base}${url}` : url;
+  }
+  return url;
+}
+
 export const fmtTime = (iso) =>
   iso ? new Date(iso).toLocaleTimeString("en-PK", { hour: "numeric", minute: "2-digit" }) : "";
 export const fmtDay = (iso) => {

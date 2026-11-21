@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../CartContext";
+import { resolveMediaUrl } from "../util";
 
 const DEFAULT_LOGO = "/media/branding/download.jfif";
 
 export function LogoMark({ size = 46, logo = null }) {
-  const image = logo || DEFAULT_LOGO;
+  const image = resolveMediaUrl(logo || DEFAULT_LOGO);
   useEffect(() => {
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) favicon.href = image;

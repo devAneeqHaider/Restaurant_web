@@ -4,6 +4,8 @@ import { api } from "../api";
 import { rs, defaultImage, defaultPath } from "../util";
 import FoodImg from "../components/FoodImg";
 import PageHead from "./PageHead";
+import { rs, defaultImage, defaultPath, resolveMediaUrl } from "../util";
+const showing = resolveMediaUrl(preview || (!removeImg && item?.image)) || defaultImage({ name: f.name, category_name: catName });
 
 function Modal({ title, onClose, children }) {
   useEffect(() => { const k = (e) => e.key === "Escape" && onClose(); window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [onClose]);

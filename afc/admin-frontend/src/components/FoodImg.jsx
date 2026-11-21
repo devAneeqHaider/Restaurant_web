@@ -1,4 +1,4 @@
-import { defaultImage } from "../util";
+import { defaultImage, resolveMediaUrl } from "../util";
 
 // Uploaded photo if the admin set one, otherwise a matching default. Never broken/empty.
 export default function FoodImg({ item, className = "", alt }) {
@@ -6,7 +6,7 @@ export default function FoodImg({ item, className = "", alt }) {
   return (
     <img
       className={className}
-      src={item?.image || fallback}
+      src={resolveMediaUrl(item?.image) || fallback}
       alt={alt || item?.name || "Food"}
       loading="lazy"
       onError={(e) => {

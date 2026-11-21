@@ -5,6 +5,8 @@ import { api } from "../api";
 import { useCart } from "../CartContext";
 import { defaultPath, rs } from "../util";
 import FoodImg from "../components/FoodImg";
+import { defaultPath, resolveMediaUrl, rs } from "../util";
+const hero = (key) => resolveMediaUrl(all.find((i) => i.image && new RegExp(key, "i").test(`${i.name} ${i.category_name}`))?.image) || defaultPath(key);
 
 const FEATURES = [
   [Leaf, "Fresh Ingredients", "Made to order with fresh, quality ingredients every day."],
