@@ -4,7 +4,6 @@ import { api, setToken } from "../api";
 import PasswordInput from "../components/PasswordInput";
 import PageHead from "./PageHead";
 import { resolveMediaUrl } from "../util";
-{(logoPreview || siteSettings?.logo) ? <img src={resolveMediaUrl(logoPreview || siteSettings.logo)} alt="Website logo preview" /> : <ImagePlus size={28} />}
 
 export default function Profile() {
   const [account, setAccount] = useState(null);
@@ -103,7 +102,7 @@ export default function Profile() {
         <form className="settings" onSubmit={saveLogo}>
           <div className="brand-logo-row">
             <div className="brand-logo-preview">
-              {(logoPreview || siteSettings?.logo) ? <img src={logoPreview || siteSettings.logo} alt="Website logo preview" /> : <ImagePlus size={28} />}
+              {(logoPreview || siteSettings?.logo) ? <img src={resolveMediaUrl(logoPreview || siteSettings.logo)} alt="Website logo preview" /> : <ImagePlus size={28} />}
             </div>
             <label>Choose logo image<input key={logoInputKey} type="file" accept="image/png,image/jpeg,image/webp" onChange={(e) => setLogoFile(e.target.files?.[0] || null)} /></label>
           </div>

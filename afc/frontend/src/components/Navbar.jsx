@@ -7,7 +7,8 @@ import Logo from "./Logo";
 export default function Navbar() {
   const { pathname } = useLocation();
   const nav = useNavigate();
-  const { count } = useCart();
+  const { count, cfg } = useCart();
+  const contactNumber = cfg.contact_number || "03357898714";
   const [open, setOpen] = useState(false);
   const [searching, setSearching] = useState(false);
   const [q, setQ] = useState("");
@@ -29,7 +30,7 @@ export default function Navbar() {
 
   return (
     <>
-    <div className="topbar"><span>🔥 Fresh &amp; hot in 30-40 min</span><span className="dot">•</span><span>Cash on Delivery</span><span className="dot hide-sm">•</span><a className="hide-sm" href="tel:03454996160">Call 03454996160</a></div>
+    <div className="topbar"><span>🔥 Fresh &amp; hot in 30-40 min</span><span className="dot">•</span><span>Cash on Delivery</span><span className="dot hide-sm">•</span><a className="hide-sm" href={`tel:${contactNumber}`}>Call {contactNumber}</a></div>
     <header className={`nav ${isMenu ? "nav-menu" : ""} ${isCheckout ? "nav-red" : ""} ${isHome ? "nav-over" : ""} ${searching ? "search-open" : ""}`}>
       <div className="nav-in">
         <Logo light={isCheckout} size={isMenu || isCheckout ? 10 : 54} />

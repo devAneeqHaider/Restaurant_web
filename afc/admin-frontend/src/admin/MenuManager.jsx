@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { ImagePlus, Pencil, Plus, Trash2, X } from "lucide-react";
 import { api } from "../api";
-import { rs, defaultImage, defaultPath } from "../util";
+import { rs, defaultImage, defaultPath, resolveMediaUrl } from "../util";
 import FoodImg from "../components/FoodImg";
 import PageHead from "./PageHead";
-import { rs, defaultImage, defaultPath, resolveMediaUrl } from "../util";
-const showing = resolveMediaUrl(preview || (!removeImg && item?.image)) || defaultImage({ name: f.name, category_name: catName });
 
 function Modal({ title, onClose, children }) {
   useEffect(() => { const k = (e) => e.key === "Escape" && onClose(); window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [onClose]);
@@ -56,7 +54,7 @@ function ItemForm({ item, cats, defaultCat, onSaved, onClose }) {
     if (fl.size > 5 * 1024 * 1024) return setErr("Image is too large. Max 5 MB");
     setErr(""); setFile(fl); setRemoveImg(false); setPreview(URL.createObjectURL(fl));
   };
-  const showing = preview || (!removeImg && item?.image) || defaultImage({ name: f.name, category_name: catName });
+  const showing = resolveMediaUrl(preview || (!removeImg && item?.image)) || defaultImage({ name: f.name, category_name: catName });
   const usingDefault = !preview && (removeImg || !item?.image);
 
   const save = async (e) => {

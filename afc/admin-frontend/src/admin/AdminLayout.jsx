@@ -4,8 +4,7 @@ import { ExternalLink, HelpCircle, LayoutDashboard, ClipboardList, UtensilsCross
 import { api, getToken } from "../api";
 import { LogoMark } from "../components/Logo";
 
-// Customer website ka address (admin-frontend/.env mein VITE_SITE_URL=https://yourdomain.com). Khali ho to link nahi dikhta.
-const SITE_URL = import.meta.env.VITE_SITE_URL || "";
+const SITE_URL = import.meta.env.VITE_SITE_URL || "https://ahmad-food-center.netlify.app/";
 
 const NAV = [
   ["/admin", "Dashboard", LayoutDashboard, true], ["/admin/profile", "Profile", User],

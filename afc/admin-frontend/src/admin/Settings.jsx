@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MessageCircle, Save, Truck } from "lucide-react";
+import { MessageCircle, Phone, Save, Truck } from "lucide-react";
 import { api } from "../api";
 import PageHead from "./PageHead";
 import PasswordInput from "../components/PasswordInput";
@@ -7,6 +7,8 @@ import PasswordInput from "../components/PasswordInput";
 export default function Settings() {
   const [s, setS] = useState(null);
   const [msg, setMsg] = useState("");
+  const [contactMsg, setContactMsg] = useState("");
+  const [contactBusy, setContactBusy] = useState(false);
   useEffect(() => { api.getSettings().then(setS).catch(() => {}); }, []);
   if (!s) return <PageHead title="Store Settings" subtitle="Loading…" />;
   const up = (k, v) => setS({ ...s, [k]: v });
@@ -16,12 +18,42 @@ export default function Settings() {
     try { setS(await api.saveSettings(s)); setMsg("Settings saved"); } catch { setMsg("Could not save settings"); }
     setTimeout(() => setMsg(""), 2500);
   };
+  const saveContact = async () => {
+    const contactNumber = (s.contact_number || "").trim();
+    if (!contactNumber) {
+      setContactMsg("Enter a contact number first");
+      return;
+    }
+    setContactBusy(true);
+    setContactMsg("");
+    try {
+      const updated = await api.saveSettings({ contact_number: contactNumber });
+      setS((current) => ({ ...current, ...updated }));
+      setContactMsg("Contact number updated");
+    } catch {
+      setContactMsg("Could not update contact number");
+    } finally {
+      setContactBusy(false);
+      setTimeout(() => setContactMsg(""), 2500);
+    }
+  };
   const testLink = `https://wa.me/${(s.whatsapp_number || "").replace(/\D/g, "").replace(/^0/, "92")}?text=${encodeURIComponent("✅ AFC test: WhatsApp notifications are set up.")}`;
 
   return (
     <>
-      <PageHead title="Store Settings" subtitle="Delivery fee and WhatsApp notifications" />
+      <PageHead title="Store Settings" subtitle="Contact details, delivery fee and WhatsApp notifications" />
       <form className="settings" onSubmit={save}>
+        <section className="card">
+          <h3><Phone size={20} /> Contact details</h3>
+          <label>Customer support phone number<input value={s.contact_number || ""} onChange={(e) => up("contact_number", e.target.value)} placeholder="03357898714" inputMode="tel" maxLength={20} /></label>
+          <p className="muted">This number appears on the website for customers who want to call.</p>
+          <div className="save-row">
+            <button type="button" className="btn btn-grad" onClick={saveContact} disabled={contactBusy}>
+              <Save size={17} /> {contactBusy ? "Updating…" : "Update contact number"}
+            </button>
+            {contactMsg && <span className={contactMsg.startsWith("Could not") || contactMsg.startsWith("Enter") ? "alert-err" : "ok"} role="status">{contactMsg}</span>}
+          </div>
+        </section>
         <section className="card">
           <h3><Truck size={20} /> Delivery settings</h3>
           <label>Delivery fee (PKR)<input type="number" min="0" value={s.delivery_fee} onChange={(e) => up("delivery_fee", e.target.value)} /></label>

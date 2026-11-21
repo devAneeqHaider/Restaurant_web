@@ -62,6 +62,12 @@ class SiteSettings(models.Model):
     logo = models.ImageField(upload_to="branding/", blank=True, null=True)
     delivery_fee = models.PositiveIntegerField(default=100)
     free_delivery_over = models.PositiveIntegerField(default=1000, help_text="Deprecated – no longer used")
+    contact_number = models.CharField(
+        max_length=20,
+        blank=True,
+        default="03357898714",
+        help_text="Public customer support contact number",
+    )
     whatsapp_number = models.CharField(
         max_length=20,
         blank=True,

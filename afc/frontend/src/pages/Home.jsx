@@ -3,10 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Banknote, Clock, Leaf, Plus, Search, ShieldCheck, Star, Zap } from "lucide-react";
 import { api } from "../api";
 import { useCart } from "../CartContext";
-import { defaultPath, rs } from "../util";
-import FoodImg from "../components/FoodImg";
 import { defaultPath, resolveMediaUrl, rs } from "../util";
-const hero = (key) => resolveMediaUrl(all.find((i) => i.image && new RegExp(key, "i").test(`${i.name} ${i.category_name}`))?.image) || defaultPath(key);
+import FoodImg from "../components/FoodImg";
 
 const FEATURES = [
   [Leaf, "Fresh Ingredients", "Made to order with fresh, quality ingredients every day."],
@@ -29,7 +27,7 @@ export default function Home() {
     api.menu().then(setAll).catch(() => {});
   }, []);
 
-  const hero = (key) => all.find((i) => i.image && new RegExp(key, "i").test(`${i.name} ${i.category_name}`))?.image || defaultPath(key);
+  const hero = (key) => resolveMediaUrl(all.find((i) => i.image && new RegExp(key, "i").test(`${i.name} ${i.category_name}`))?.image) || defaultPath(key);
   const submit = (e) => { e.preventDefault(); nav(`/menu${q.trim() ? `?search=${encodeURIComponent(q.trim())}` : ""}`); };
 
   return (

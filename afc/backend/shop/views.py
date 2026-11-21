@@ -63,6 +63,7 @@ def public_settings(request):
     return Response({
         "delivery_fee": s.delivery_fee,
         "free_delivery_over": s.free_delivery_over,
+        "contact_number": s.contact_number,
         "whatsapp_number": s.whatsapp_number,
         "logo": s.logo.url if s.logo else None,
     })

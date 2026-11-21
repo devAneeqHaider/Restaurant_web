@@ -5,6 +5,7 @@ import Logo from "./Logo";
 
 export default function Footer() {
   const { cfg } = useCart();
+  const contact = cfg.contact_number || "03357898714";
   const whatsapp = cfg.whatsapp_number || "03454996160";
   const waDigits = whatsapp.replace(/\D/g, "");
   const waNumber = waDigits.startsWith("0") ? `92${waDigits.slice(1)}` : waDigits;
@@ -28,7 +29,7 @@ export default function Footer() {
           </div>
           <div className="f-col">
             <h4><Headphones size={16} /> Need help?</h4>
-            <a className="f-line f-contact-line" href="tel:03454996160"><Phone size={15} /><span><small>Call support</small><b>03454996160</b></span></a>
+            <a className="f-line f-contact-line" href={`tel:${contact}`}><Phone size={15} /><span><small>Call support</small><b>{contact}</b></span></a>
             <a className="f-line f-contact-line" href={`https://wa.me/${waNumber}`} target="_blank" rel="noreferrer"><MessageCircle size={15} /><span><small>WhatsApp</small><b>{whatsapp}</b></span></a>
             <p className="f-line f-delivery-line"><Clock size={15} /><span>Delivery in 30–40 minutes</span></p>
           </div>
