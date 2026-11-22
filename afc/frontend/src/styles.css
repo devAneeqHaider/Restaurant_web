@@ -812,3 +812,13 @@ html,body,#root{max-width:100%;overflow-x:clip}
   .cat-card b{min-height:2.5em;padding-inline:7px}
   .food-card .food-body h3{min-height:2.5em}
 }
+
+/* Desktop home hero: preserve the composition while trimming only its empty
+   lower breathing room. */
+@media (min-width:769px){
+  .nav-over ~ main .hero-in{padding-bottom:34px}
+}
+
+@media (max-width:768px){
+  .nav-in{border-radius:30px}
+}
