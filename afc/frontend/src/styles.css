@@ -649,3 +649,151 @@ body{
 .foot-credit{padding:6px 16px;background:linear-gradient(105deg,#921c13,#d9341c,#a12a83,#4737a8,#075f9a,#087f73,#7d8714,#d66a10,#921c13);background-size:300% 100%;animation:foot-credit-color-flow 16s linear infinite}
 @keyframes foot-credit-color-flow{from{background-position:0% 50%}to{background-position:100% 50%}}
 @media (prefers-reduced-motion:reduce){.foot-credit{animation:none;background-position:50% 50%}}
+
+/* Responsive storefront layer: keeps the desktop composition intact while
+   giving phones a purpose-built, touch-friendly layout. */
+html,body,#root{max-width:100%;overflow-x:clip}
+
+@media (max-width:760px){
+  body{background-size:680px auto;background-attachment:scroll}
+  .wrap{padding-left:16px;padding-right:16px}
+  .card{border-radius:18px;padding:16px}
+  .btn{min-height:44px;padding:10px 18px}
+  .icon-btn{min-width:40px;min-height:40px}
+
+  /* The header remains easy to operate with one hand without overflowing. */
+  .topbar{min-height:32px;justify-content:center;gap:7px;padding:6px 10px;font-size:.69rem;text-align:center}
+  .nav,.nav.nav-red,.nav.nav-menu{padding:8px 10px 0}
+  .nav-in{display:grid;grid-template-columns:minmax(0,1fr) auto;width:100%;max-width:none;min-height:64px;gap:6px;justify-content:normal;border-radius:22px;padding:7px 10px}
+  .nav-in>.links{display:none!important}
+  .nav .logo-mark-frame{width:42px!important;height:42px!important}
+  .nav .logo-text b{font-size:1.35rem}
+  .nav .logo-text small{font-size:.52rem}
+  .nav-right{margin:0;gap:1px}
+  .nav-right .nav-ic{width:38px;min-width:38px;height:38px;min-height:38px;padding:5px}
+  .cart-pill{width:40px;min-width:40px;height:40px;padding:0;display:grid;place-items:center;border-radius:14px}
+  .cart-pill>span{display:none}
+  .cart-pill .badge{top:-5px;right:-5px}
+  .burger{width:40px;min-width:40px;height:40px;min-height:40px;padding:5px}
+  .mobile-links{position:relative;z-index:60;margin:8px 0 0;padding:8px 16px 10px;border-radius:18px}
+  .mobile-links a{display:flex;align-items:center;min-height:42px;padding:8px 2px}
+  .nav.search-open .nav-search{top:calc(100% + 8px);right:8px;width:calc(100vw - 36px);min-height:46px}
+  .nav-over ~ main .hero-in{padding-top:154px}
+
+  /* Hero becomes a compact story instead of a crowded desktop collage. */
+  .hero{border-radius:0 0 30px 30px}
+  .hero-in{gap:8px;padding:42px 16px 30px;text-align:center}
+  .hero-copy{width:100%;min-width:0;max-width:calc(100vw - 32px)}
+  .hero h1{max-width:340px;margin-inline:auto;font-size:clamp(2rem,9vw,2.25rem);letter-spacing:-.8px;text-wrap:balance}
+  .hero h1 br{display:block}
+  .hero h1 .hl{white-space:normal}
+  .hero-copy>p{max-width:300px;margin:14px auto 20px;font-size:.95rem;line-height:1.55;overflow-wrap:break-word}
+  .eyebrow{margin-bottom:12px;padding:5px 12px;font-size:.76rem}
+  .hero-search{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;width:100%;max-width:340px;margin-inline:auto;padding:8px 12px;border-radius:18px;text-align:left}
+  .hero-search .btn-red{grid-column:1/-1;width:100%;padding:10px 16px}
+  .hero-stats{display:grid;grid-template-columns:1fr;gap:8px;width:100%;margin:18px auto 0;max-width:340px;text-align:left}
+  .hero-stats li{padding:8px 12px}
+  .hero-art{height:270px;max-width:360px}
+  .h-pizza{width:184px;height:184px;right:58px;top:0}
+  .h-burger{width:126px;height:126px;right:0;top:72px}
+  .h-shawarma{width:144px;height:144px;right:112px;bottom:-6px}
+  .h-cake{width:82px;height:82px;left:6px;right:auto;top:116px}
+  .chip-float{display:none}
+
+  .section{padding:38px 16px 20px}
+  .section h2,.sec-head h2,.why h2{font-size:1.38rem}
+  .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+  .cat-card{min-width:0;border-radius:18px;padding-bottom:14px}
+  .cat-photo,.cat-photo-cake,.cat-photo-pizza{height:112px;padding:6px;margin-bottom:9px}
+  .cat-card b{font-size:.92rem;text-align:center;padding-inline:7px;overflow-wrap:anywhere}
+  .cat-card small{font-size:.69rem;text-align:center;padding:2px 8px;max-width:92%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .best{padding:18px 16px 26px}
+  .sec-head{align-items:center;gap:12px;margin-bottom:13px}
+  .sec-head h2{line-height:1.15}.link-orange{white-space:nowrap;font-size:.86rem}
+  .best-grid{grid-template-columns:1fr;gap:14px}
+  .best-card{padding:8px;border-radius:20px}.best-body{padding:12px 6px 5px}
+  .best-img{height:auto}.best-foot{margin-top:6px}
+  .why{padding:24px 16px 42px}.why-grid{grid-template-columns:1fr;gap:12px;margin-top:18px}
+  .why-card{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:13px;align-items:center;padding:16px}
+  .why-card span{grid-row:1/span 2;width:48px;height:48px;margin:0;border-radius:14px}
+  .why-card b{font-size:.98rem}.why-card p{grid-column:2;margin:2px 0 0;font-size:.82rem;line-height:1.45}
+
+  /* Menu controls and products are optimized for short thumbs and touch. */
+  .menu-page,.checkout,.track-page{padding-top:24px;padding-bottom:34px}
+  .page-title{font-size:clamp(1.75rem,9vw,2.25rem);line-height:1.1}
+  .subtitle{font-size:.92rem;line-height:1.5;margin-bottom:16px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;margin:0 -16px 20px;padding:2px 16px 8px;gap:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .filters::-webkit-scrollbar,.adm-side nav::-webkit-scrollbar,.adm-bottom::-webkit-scrollbar{display:none}
+  .filters button{flex:none;min-height:40px;padding:8px 14px;scroll-snap-align:start;font-size:.83rem}
+  .food-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .food-card{min-width:0;padding:7px;border-radius:18px}
+  .img-wrap{border-radius:13px}.food-body{padding:10px 3px 3px;gap:6px}
+  .food-body h3{font-size:.9rem;line-height:1.25;overflow-wrap:anywhere}
+  .food-body p{font-size:.72rem;min-height:2.5em}
+  .tag{left:7px;top:7px;max-width:calc(100% - 14px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.56rem;padding:3px 7px}
+  .rate{right:6px;bottom:6px;font-size:.64rem;padding:3px 6px}.rate small{display:none}
+  .price-row .price{font-size:1rem}.qty{border-radius:9px}.qty button{width:28px;height:30px}.qty span{min-width:18px;font-size:.78rem}
+  .food-card .add-btn{min-height:38px;padding:7px 6px;border-radius:11px;font-size:.72rem}
+  .cart-summary{position:static;margin-top:20px;padding:18px}
+  .cart-lines{max-height:none}.cart-lines li{grid-template-columns:48px minmax(0,1fr) auto;gap:8px;padding:7px}
+  .cart-lines .thumb{width:48px;height:48px}.cart-lines b{font-size:.83rem;overflow-wrap:anywhere}
+  .sum-rows .grand{font-size:1.05rem}.promo-row{align-items:center}
+
+  /* Forms and summaries no longer feel compressed on a phone. */
+  .checkout-grid{gap:16px}.checkout .card-title{font-size:1.12rem}
+  .checkout-grid>.col-left>.card,.checkout-grid>.order-sum,.track-form,.track-detail{padding:16px}
+  label input,label select{min-height:44px;font-size:16px}
+  .phone{min-height:44px}.cc{padding-inline:9px;font-size:.85rem}
+  .loc-head{align-items:flex-start;gap:8px;flex-direction:column}.loc-head .link-btn{min-height:34px}
+  .map{height:138px}.map-dialog{border-radius:16px;padding:14px}.map-dialog-head{gap:10px}.map-dialog-head p{font-size:.82rem}.map-dialog-frame{height:45vh}
+  .pay{align-items:flex-start;padding:12px;gap:9px}.pay small{font-size:.76rem;line-height:1.4}.soon{margin-left:0;white-space:nowrap}
+  .sum-list{gap:10px}.sum-list li{grid-template-columns:52px minmax(0,1fr) auto;gap:9px}.sum-list .thumb{width:52px;height:52px}.sum-list li>div{min-width:0}.sum-list li b{overflow-wrap:anywhere}
+  .cod-box{font-size:.8rem}.wa-actions{flex-direction:column}.wa-actions .btn{width:100%}
+  .track-form{grid-template-columns:1fr;gap:12px}.track-form .btn{width:100%}
+  .tracker-head{align-items:flex-start}.tracker-head h3{font-size:1.05rem}.chip{font-size:.74rem;padding:5px 10px}
+  .steps{margin-top:20px;gap:13px}.step{align-items:flex-start}.step-dot{width:46px;height:46px;flex:none}.step b{font-size:.88rem}.step small{margin-left:58px;margin-top:-12px;text-align:left}
+  .track-detail li{gap:12px;font-size:.88rem}.track-detail li span{min-width:0;overflow-wrap:anywhere}
+
+  /* Footer and fixed cart deliberately leave room for mobile browser chrome. */
+  main{padding-bottom:74px}
+  .footer{margin-top:48px;padding-top:20px}.f-cta{align-items:stretch;gap:7px;padding:13px 16px;border-radius:18px;text-align:center}.f-cta h3{font-size:1.02rem;line-height:1.25}.f-cta p{font-size:.73rem;line-height:1.4}.f-cta .btn{width:100%;min-height:38px;padding:7px 14px;font-size:.8rem}
+  .f-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 10px;padding:24px 0 22px}.f-col{width:100%;min-width:0;gap:5px}.f-brand{grid-column:1/-1;margin-bottom:2px}.f-brand p{max-width:100%;font-size:.82rem;line-height:1.5}.f-col h4{margin-bottom:2px;padding-bottom:6px;font-size:.78rem;line-height:1.25}.f-col a{font-size:.68rem;line-height:1.35}.f-line{min-height:0;gap:4px;padding:5px;font-size:.63rem;line-height:1.25}.f-line svg{width:12px;height:12px}.f-contact-line span{display:block;min-width:0}.f-contact-line small{display:none}.f-contact-line b{display:block;font-size:.59rem;white-space:normal;overflow-wrap:anywhere}.f-delivery-line{font-size:.62rem}.f-pay{min-height:0;max-width:none;align-items:flex-start;gap:4px;padding:5px;font-size:.62rem;line-height:1.25}.f-pay svg{width:13px;height:13px;flex:none}.f-pay em{margin:2px 0 0;font-size:.5rem;padding:2px 4px}
+  .f-bottom{font-size:.73rem;line-height:1.5}.foot-credit{min-height:46px;padding:8px 14px;font-size:.65rem;letter-spacing:.09em}
+  .mcart{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));min-height:54px;padding:9px 12px;gap:7px;border-radius:16px;font-size:.78rem}
+  .mcart span{gap:5px}.mcart em{padding:4px 8px;font-size:.72rem;white-space:nowrap}
+  .toast{bottom:78px;max-width:calc(100vw - 24px);text-align:center}
+}
+
+@media (max-width:390px){
+  .topbar{font-size:.64rem}.topbar .dot{display:none}
+  .nav-in{padding-inline:8px}.nav .logo-mark-frame{width:38px!important;height:38px!important}
+  .nav .logo-text small{display:none}.nav .logo-text b{font-size:1.22rem}
+  .nav-right .nav-ic{display:none}.nav-right .nav-ic:has(+ .cart-pill){display:grid}
+  .cart-pill,.burger{width:37px;min-width:37px;height:37px;min-height:37px}
+  .nav-over ~ main .hero-in{padding-top:142px}.hero-in{padding-inline:14px}.hero h1{font-size:2.25rem}
+  .hero-art{height:242px}.h-pizza{width:166px;height:166px;right:52px}.h-burger{width:112px;height:112px}.h-shawarma{width:130px;height:130px;right:100px}.h-cake{width:72px;height:72px}
+  .food-grid{gap:8px}.food-card{padding:6px}.food-body h3{font-size:.83rem}.food-card .add-btn{font-size:.66rem}.food-card .add-btn svg{display:none}
+  .mcart span{display:none}.mcart{justify-content:flex-end}.mcart b{margin-right:auto}
+  .cat-card small{display:none}
+  .f-grid{gap:12px 7px}.f-brand p{font-size:.77rem}.f-col h4{font-size:.72rem}.f-col a{font-size:.64rem}.f-line{font-size:.59rem}.f-contact-line b{font-size:.54rem}.f-pay{font-size:.58rem}
+}
+
+/* Home hero: compact phone-only copy and info-card spacing. The food-image
+   collage keeps its existing sizing, placement, and animation. */
+@media (max-width:768px){
+  .nav-over ~ main .hero-in{padding-top:112px}
+  .hero{height:auto;min-height:0}
+  .hero-in{gap:3px;padding:24px 14px 14px;min-height:0;text-align:center}
+  .hero-copy{max-width:calc(100vw - 28px)}
+  .eyebrow{margin-bottom:5px;padding:3px 9px;font-size:.65rem}
+  .hero h1{max-width:300px;font-size:clamp(1.6rem,7.5vw,1.9rem);letter-spacing:-.6px}
+  .hero-copy>p{max-width:275px;margin:6px auto 9px;font-size:.75rem;line-height:1.38}
+  .hero-search{max-width:300px;grid-template-columns:17px minmax(0,1fr);gap:4px;padding:5px 9px;border-radius:15px}
+  .hero-search svg{width:16px;height:16px}
+  .hero-search input{font-size:.75rem}
+  .hero-search .btn-red{min-height:34px;padding:6px 12px;font-size:.75rem}
+  .hero-stats{max-width:300px;gap:3px;margin:7px auto 0;font-size:.72rem}
+  .hero-stats li{gap:5px;padding:5px 9px;border-radius:10px}
+  .hero-stats svg{width:14px;height:14px;flex:none}
+  .hero-stats span{line-height:1.12}
+}

@@ -589,3 +589,44 @@ main{animation:fadeUp .55s both}
 /* splash: animations wait until it is really on screen */
 .splash:not(.splash-run) *{animation-play-state:paused!important}
 
+/* Mobile-first admin refinements. The data table remains horizontally
+   scrollable by design, while all controls and forms fit narrow screens. */
+html,body,#root{max-width:100%;overflow-x:clip}
+
+@media (max-width:760px){
+  body{background-attachment:scroll}
+  .adm-side{gap:8px;padding:10px 12px 9px}
+  .adm-brand{gap:8px;min-width:max-content}.adm-brand b{font-size:1.35rem}.adm-brand small{font-size:.57rem}
+  .adm-brand .adm-logo-mark-frame{width:40px!important;height:40px!important}
+  .adm-side nav{order:3;flex:none;width:100%;gap:6px;padding:2px 0 5px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .adm-side nav a{flex:none;min-height:40px;padding:8px 11px;font-size:.78rem;scroll-snap-align:start}
+  .adm-side nav a svg{width:17px;height:17px}
+  .adm-bottom{order:4;flex:none;width:100%;margin:0;overflow-x:auto;white-space:nowrap;gap:6px;padding-bottom:1px}
+  .adm-bottom .help-link{flex:none;min-height:38px;padding:8px 10px;font-size:.76rem}
+  .adm-main{padding:16px 12px 32px}
+  .adm-head{gap:14px;margin-bottom:18px}.adm-head h1{font-size:clamp(1.55rem,8vw,2rem);line-height:1.12}.adm-head p{font-size:.8rem;line-height:1.45}
+  .adm-tools{width:100%;gap:8px;flex-wrap:wrap}.adm-search{order:1;width:100%;min-height:42px;padding-inline:12px}.adm-search input{width:100%;min-width:0;padding-block:9px;font-size:16px}
+  .notification-wrap{order:2}.profile{order:3;flex:1;min-width:0;padding:4px 9px 4px 5px}.profile div{display:block;min-width:0}.profile b,.profile small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.profile b{font-size:.78rem}.profile small{max-width:none;font-size:.64rem}
+  .adm-tools>.icon-btn{order:4;min-width:40px;min-height:40px}
+
+  .stats{grid-template-columns:1fr;gap:12px;margin-bottom:18px}.stat{padding:16px}.stat b{font-size:2rem}.s-ic{right:14px;top:14px}
+  .live{padding:14px;border-radius:16px}.live-head{align-items:stretch;margin-bottom:12px}.live-head h2{font-size:1.25rem}.live-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.live-btns .btn{min-height:42px;padding:8px 10px;font-size:.76rem}
+  .filter-wrap{min-width:0}.filter-wrap .btn{width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.filter-menu{left:0;right:auto;min-width:190px}
+  .table-wrap{margin:0 -3px;padding-bottom:4px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}.table-wrap::after{content:"Swipe to view all columns";display:block;padding:8px 3px 0;color:#747b8a;font-size:.7rem;font-weight:600}
+  table.orders{min-width:760px}.orders th,.orders td{padding:9px 8px}.acts{gap:4px}.act{min-height:30px;padding:4px 7px}
+  .pager{align-items:flex-start;flex-direction:column;gap:9px}.pager div{max-width:100%;overflow-x:auto;padding-bottom:2px}.pager button{min-height:34px;white-space:nowrap}
+
+  .mm-head{align-items:flex-start;flex-direction:column}.mm-head .btn{width:100%}.cat-chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -2px;padding:2px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}.cchip{flex:none;min-height:42px;padding-left:12px}.mm-grid{grid-template-columns:1fr;gap:12px}.mm-img{height:170px}.mm-act .btn{min-height:40px}
+  .modal-bg{padding:10px}.modal{width:100%;max-height:calc(100dvh - 20px);padding:16px;border-radius:16px}.modal-head{gap:12px}.form{gap:12px}.form-act{gap:8px}.form-act .btn{flex:1;min-height:44px;padding-inline:10px}
+  .photo-pick{align-items:flex-start;gap:12px;padding:10px}.photo-pick img{width:82px;height:82px}.photo-pick div{min-width:0}.photo-pick small{font-size:.73rem;line-height:1.4}
+  .settings{gap:14px}.settings .card{padding:16px}.save-row{align-items:stretch;flex-direction:column;gap:8px}.save-row .btn{width:100%}.brand-logo-row{align-items:flex-start;gap:12px}.brand-logo-row label{min-width:0;width:100%}
+  .promo-page{gap:14px}.promo-page .card{padding:16px}.promo-admin .promo-code-list li{gap:8px}.promo-add input,.promo-page .promo-add label input{min-height:44px;font-size:16px}
+  .login-page{padding:14px}.login-card{padding:24px 18px;border-radius:18px}.login-card .btn{width:100%}
+}
+
+@media (max-width:390px){
+  .adm-brand small{display:none}.adm-side{padding-inline:10px}.adm-side nav a{padding:8px 10px}.adm-side nav a svg{display:none}
+  .live-btns{grid-template-columns:1fr}.live-btns .btn{width:100%}.photo-pick{flex-direction:column}.photo-pick img{width:100%;height:132px}
+  .modal{padding:14px}.form-act{flex-direction:column}.form-act .btn{width:100%}
+}
+
