@@ -6,6 +6,7 @@ import { useCart } from "../CartContext";
 import { rs } from "../util";
 import FoodImg from "../components/FoodImg";
 import CartSummary from "../components/CartSummary";
+import Spinner from "../components/Spinner";
 
 function FoodCard({ item }) {
   const { add } = useCart();
@@ -71,7 +72,7 @@ export default function Menu({ dealsOnly = false }) {
             </div>
           )}
           {search && <p className="muted">Showing results for “{search}” · <button className="link-btn" onClick={() => setFilter(cat)}>Clear</button></p>}
-          {loading ? <p className="muted">Loading menu…</p> : items.length === 0 ? (
+          {loading ? <div className="loading-inline" role="status"><Spinner /> Loading menu…</div> : items.length === 0 ? (
             <div className="card empty-state"><b>No items found</b><p>Try another search or pick a different category.</p></div>
           ) : (
             <div className="food-grid">{items.map((i) => <FoodCard key={i.id} item={i} />)}</div>

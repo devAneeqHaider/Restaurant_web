@@ -23,8 +23,25 @@ function MobileCartBar() {
   );
 }
 
+function MobileImageProtection() {
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: coarse)").matches) return undefined;
+    const preventImageMenu = (event) => {
+      if (event.target instanceof HTMLImageElement) event.preventDefault();
+    };
+    document.addEventListener("contextmenu", preventImageMenu);
+    return () => document.removeEventListener("contextmenu", preventImageMenu);
+  }, []);
+  return null;
+}
+
 function Site() {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
   return (
     <>
       <Navbar />
@@ -46,6 +63,7 @@ export default function App() {
   }, []);
   return (
     <>
+      <MobileImageProtection />
       {splash && <Splash onDone={done} />}
       <Routes>
         <Route element={<Site />}>

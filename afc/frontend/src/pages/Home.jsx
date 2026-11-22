@@ -8,7 +8,7 @@ import FoodImg from "../components/FoodImg";
 
 const FEATURES = [
   [Leaf, "Fresh Ingredients", "Made to order with fresh, quality ingredients every day."],
-  [Zap, "Fast Delivery", "Hot at your door in 30-40 minutes, tracked live."],
+  [Zap, "Fast Delivery", "Hot at your door, tracked live."],
   [ShieldCheck, "Clean & Hygienic", "Prepared in a spotless kitchen with strict hygiene."],
   [Banknote, "Cash on Delivery", "No online payment needed. Pay when it arrives."],
 ];
@@ -37,7 +37,8 @@ export default function Home() {
           <div className="hero-copy">
             <span className="eyebrow">🔥 Ahmad Food Center</span>
             <h1>Hungry?<br />Order <span className="hl">Fresh &amp; Hot</span></h1>
-            <p>Delicious pizza, burgers &amp; shawarma delivered hot to your door in 30-40 minutes</p>
+            <p>Freshly Prepared. Flavorfully Crafted. Delivered to Your Door.</p>
+
             <form className="hero-search" onSubmit={submit}>
               <Search size={20} />
               <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search for pizza, burger, shawarma..." aria-label="Search for food" />
@@ -55,7 +56,6 @@ export default function Home() {
             <img className="h-shawarma" src={hero("shawarma")} alt="" />
             <img className="h-cake" src="/defaults/hero-cake-full.jpg" alt="" />
             <div className="chip-float c1"><Star size={16} fill="currentColor" /> <b>4.8</b> <small>2.4k reviews</small></div>
-            <div className="chip-float c2"><Clock size={16} /> <b>30-40</b> <small>min delivery</small></div>
           </div>
         </div>
       </section>

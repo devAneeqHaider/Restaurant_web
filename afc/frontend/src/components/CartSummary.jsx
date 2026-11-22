@@ -1,28 +1,37 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Trash2, Lock } from "lucide-react";
 import { api } from "../api";
 import { useCart } from "../CartContext";
 import { rs } from "../util";
 import FoodImg from "./FoodImg";
+import Spinner from "./Spinner";
 
 export function PromoBox() {
   const { promo, setPromo } = useCart();
   const [code, setCode] = useState("");
   const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
+  const busyRef = useRef(false);
   const apply = async () => {
-    if (!code.trim()) return;
+    if (!code.trim() || busyRef.current) return;
+    busyRef.current = true;
+    setBusy(true);
     try {
       const r = await api.validatePromo(code);
       setPromo({ code: code.trim().toUpperCase(), percent: r.percent });
       setMsg(`${r.percent}% discount applied`);
     } catch (e) { setPromo(null); setMsg(e.detail || "Invalid promo code"); }
+    finally {
+      busyRef.current = false;
+      setBusy(false);
+    }
   };
   return (
     <div className="promo">
       <div className="promo-row">
         <input placeholder="Enter promo code" value={code} onChange={(e) => setCode(e.target.value)} onKeyDown={(e) => e.key === "Enter" && apply()} aria-label="Promo code" />
-        <button type="button" onClick={apply}>Apply</button>
+        <button type="button" onClick={apply} disabled={busy}>{busy ? <><Spinner size={16} /> Applying</> : "Apply"}</button>
       </div>
       {msg && <small className={promo ? "ok" : "err"}>{msg}</small>}
     </div>
@@ -65,7 +74,7 @@ export default function CartSummary() {
       <Link to={c.lines.length ? "/checkout" : "/menu"} className={`btn btn-grad btn-block ${c.lines.length ? "" : "disabled"}`}>
         {c.lines.length ? "Proceed to Checkout" : "Browse Menu"}
       </Link>
-      <p className="secure"><Lock size={13} /> Secure checkout • Estimated delivery: 30-40 min</p>
+      <p className="secure"><Lock size={13} /> Secure checkout</p>
       <PromoBox />
     </aside>
   );

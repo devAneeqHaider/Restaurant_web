@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
 import { api } from "../api";
 import { rs } from "../util";
 import Tracker from "../components/Tracker";
+import Spinner from "../components/Spinner";
 
 export default function Track() {
   const [sp] = useSearchParams();
@@ -12,12 +13,23 @@ export default function Track() {
   const [order, setOrder] = useState(null);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
+  const busyRef = useRef(false);
 
   const fetchOrder = async (silent) => {
-    if (!silent) { setBusy(true); setErr(""); }
+    if (!silent) {
+      if (busyRef.current) return;
+      busyRef.current = true;
+      setBusy(true);
+      setErr("");
+    }
     try { setOrder(await api.track(oid, phone)); }
     catch (e) { if (!silent) { setOrder(null); setErr(e.detail || "Order not found"); } }
-    finally { if (!silent) setBusy(false); }
+    finally {
+      if (!silent) {
+        busyRef.current = false;
+        setBusy(false);
+      }
+    }
   };
   useEffect(() => {
     if (!order || order.status === "delivered") return;
@@ -32,7 +44,7 @@ export default function Track() {
       <form className="card track-form" onSubmit={(e) => { e.preventDefault(); fetchOrder(); }}>
         <label>Order ID<input value={oid} onChange={(e) => setOid(e.target.value)} placeholder="AFC-1234" required /></label>
         <label>Phone Number<input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="0300 1234567" inputMode="tel" required /></label>
-        <button className="btn btn-grad" disabled={busy}><Search size={18} /> {busy ? "Checking…" : "Track Order"}</button>
+        <button className="btn btn-grad" disabled={busy}>{busy ? <Spinner /> : <Search size={18} />} {busy ? "Checking…" : "Track Order"}</button>
       </form>
       {err && <p className="alert-err" role="alert">{err}</p>}
       {order && (

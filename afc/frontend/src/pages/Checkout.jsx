@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Banknote, CreditCard, Copy, LocateFixed, MapPin, MessageCircle, Trash2, User, X } from "lucide-react";
 import { api } from "../api";
@@ -7,6 +7,7 @@ import { rs } from "../util";
 import FoodImg from "../components/FoodImg";
 import Tracker from "../components/Tracker";
 import { PromoBox } from "../components/CartSummary";
+import Spinner from "../components/Spinner";
 
 const PkFlag = () => (
   <svg width="22" height="15" viewBox="0 0 22 15" aria-label="Pakistan"><rect width="22" height="15" fill="#01411c" /><rect width="5.5" height="15" fill="#fff" /><circle cx="14" cy="7.5" r="4" fill="#fff" /><circle cx="15.3" cy="6.6" r="3.4" fill="#01411c" /><path d="M16.6 4.6l.5 1.2 1.2.1-.9.8.3 1.3-1.1-.7-1.1.7.3-1.3-.9-.8 1.2-.1z" fill="#fff" /></svg>
@@ -75,6 +76,7 @@ export default function Checkout() {
   const [placed, setPlaced] = useState(null); // {order, whatsapp, phone}
   const [track, setTrack] = useState(null);
   const [copied, setCopied] = useState(false);
+  const placeBusyRef = useRef(false);
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
 
   const locate = () => {
@@ -110,6 +112,7 @@ export default function Checkout() {
 
   const place = async (e) => {
     e.preventDefault();
+    if (placeBusyRef.current) return;
     const digits = f.phone.replace(/\D/g, "").replace(/^(92|0)/, "");
     const er = {};
     if (f.customer_name.trim().length < 2) er.customer_name = "Please enter your full name";
@@ -117,6 +120,7 @@ export default function Checkout() {
     if (!f.address.trim()) er.address = "Please enter your delivery address";
     setErrs(er);
     if (Object.keys(er).length) return;
+    placeBusyRef.current = true;
     setBusy(true);
     try {
       const phone = `+92${digits}`;
@@ -125,7 +129,10 @@ export default function Checkout() {
       cart.clear();
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (x) { setErrs({ form: x.detail || x.items || Object.values(x)[0] || "Could not place order" }); }
-    finally { setBusy(false); }
+    finally {
+      placeBusyRef.current = false;
+      setBusy(false);
+    }
   };
 
   // live tracking poll after order is placed
@@ -150,7 +157,7 @@ export default function Checkout() {
   return (
     <div className="wrap checkout">
       <h1 className="page-title">Checkout &amp; Live Order Tracking</h1>
-      <p className="subtitle">Order ID: <b className="c-red">{o ? o.order_id : "assigned when you confirm"}</b> • Estimated delivery: 25–30 min</p>
+      <p className="subtitle">Order ID: <b className="c-red">{o ? o.order_id : "assigned when you confirm"}</b></p>
 
       {o && (
         <section className="card success" role="status">
@@ -195,7 +202,7 @@ export default function Checkout() {
             <label className="pay off"><input type="radio" disabled /> <span><b><CreditCard size={18} /> Card / Online Payment</b><small>Coming Soon</small></span><em className="soon">Coming Soon</em></label>
 
             {errs.form && <p className="alert-err" role="alert">{String(errs.form)}</p>}
-            {!o && <button className="btn btn-grad btn-block btn-lg" disabled={busy}>{busy ? "Placing order…" : "Confirm & Place Order"}</button>}
+            {!o && <button className="btn btn-grad btn-block btn-lg" disabled={busy}>{busy ? <><Spinner /> Placing order…</> : "Confirm & Place Order"}</button>}
             {o && <Link to="/menu" className="btn btn-ghost btn-block">Order something else</Link>}
           </form>
         </div>
