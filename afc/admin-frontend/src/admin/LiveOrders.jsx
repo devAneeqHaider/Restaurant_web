@@ -72,12 +72,12 @@ export default function LiveOrders({ pageSize = 5, q = "", onChanged }) {
           <tbody>
             {data.results.map((o) => (
               <tr key={o.id} className={busy === o.id ? "busy" : ""}>
-                <td className="oid-cell">#{o.order_id}</td>
-                <td><span className="cust"><span className="av" style={{ background: avatarColor(o.customer_name) }}>{initials(o.customer_name)}</span><span><b>{o.customer_name}</b><small>{o.phone}</small></span></span></td>
-                <td><span className="pills">{o.items.slice(0, 2).map((i, k) => <em key={k}>{i.name.split(" ").slice(-1)[0]}{i.qty > 1 ? ` ×${i.qty}` : ""}</em>)}{o.items.length > 2 && <em>+{o.items.length - 2}</em>}</span></td>
-                <td className="tot">{rs(o.total)}</td>
-                <td><span className={`st st-${o.status}`}>{o.status_label}</span></td>
-                <td>
+                <td className="oid-cell" data-label="Order ID">#{o.order_id}</td>
+                <td data-label="Customer"><span className="cust"><span className="av" style={{ background: avatarColor(o.customer_name) }}>{initials(o.customer_name)}</span><span><b>{o.customer_name}</b><small>{o.phone}</small></span></span></td>
+                <td data-label="Items"><span className="pills">{o.items.slice(0, 2).map((i, k) => <em key={k}>{i.name.split(" ").slice(-1)[0]}{i.qty > 1 ? ` ×${i.qty}` : ""}</em>)}{o.items.length > 2 && <em>+{o.items.length - 2}</em>}</span></td>
+                <td className="tot" data-label="Total price">{rs(o.total)}</td>
+                <td data-label="Status"><span className={`st st-${o.status}`}>{o.status_label}</span></td>
+                <td data-label="Actions">
                   <span className="acts">
                     {ST.map(([k, l]) => <button key={k} className={`act act-${k} ${o.status === k ? "on" : ""}`} onClick={() => change(o, k)} aria-pressed={o.status === k} disabled={busy === o.id}>{l}</button>)}
                     <button className="act wa" title="WhatsApp message" aria-label="Open WhatsApp message" onClick={() => wa(o)}><MessageCircle size={14} /></button>

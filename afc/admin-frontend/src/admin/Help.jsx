@@ -11,7 +11,7 @@ export default function Help() {
           <li>Click <b>Preparing → Out for Delivery → Delivered</b>. Customers see each change on their tracker, with the rider name and time.</li>
           <li>Use <b>Menu</b> to add categories (e.g. Cakes) and items. They appear on the customer website immediately.</li>
           <li>Upload a photo on any item. If you don't, AFC shows a matching default photo — never a blank image.</li>
-          <li>Set the delivery fee and WhatsApp details in <b>Store Settings</b>.</li>
+          <li>Set the delivery fee in <b>Delivery Fee</b>, and contact and WhatsApp details in <b>Profile</b>.</li>
           <li>Create checkout discounts in <b>Promo Codes</b>. Menu bundles are managed separately under <b>Menu Deals</b>.</li>
         </ol>
         <h3>Contact</h3>

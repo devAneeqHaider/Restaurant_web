@@ -7,7 +7,7 @@ import MenuManager from "./admin/MenuManager";
 import Customers from "./admin/Customers";
 import Profile from "./admin/Profile";
 import PromoCodes from "./admin/PromoCodes";
-import Settings from "./admin/Settings";
+import DeliverySettings from "./admin/DeliverySettings";
 import Help from "./admin/Help";
 
 // Yeh app sirf admin panel hai (customer website alag project hai: ../frontend).
@@ -23,7 +23,7 @@ export default function App() {
         <Route path="customers" element={<Customers />} />
         <Route path="profile" element={<Profile />} />
         <Route path="promos" element={<PromoCodes />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="delivery" element={<DeliverySettings />} />
         <Route path="help" element={<Help />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin" replace />} />

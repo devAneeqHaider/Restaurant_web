@@ -33,10 +33,10 @@ export default function Customers() {
           <tbody>
             {rows.map((r) => (
               <tr key={r.phone} className={busyPhone === r.phone ? "busy" : ""}>
-                <td><span className="cust"><span className="av" style={{ background: avatarColor(r.name) }}>{initials(r.name)}</span><b>{r.name}</b></span></td>
-                <td>{r.phone}</td><td>{r.address}</td><td>{r.orders}</td><td className="tot">{rs(r.spent)}</td>
-                <td>{new Date(r.last_order).toLocaleDateString("en-PK", { day: "numeric", month: "short", year: "numeric" })}</td>
-                <td><button className="act delete" title="Delete customer and order history" aria-label={`Delete customer ${r.name}`} onClick={() => remove(r)} disabled={busyPhone === r.phone}><Trash2 size={14} /> Delete</button></td>
+                <td data-label="Customer"><span className="cust"><span className="av" style={{ background: avatarColor(r.name) }}>{initials(r.name)}</span><b>{r.name}</b></span></td>
+                <td data-label="Phone">{r.phone}</td><td data-label="Last address">{r.address}</td><td data-label="Orders">{r.orders}</td><td className="tot" data-label="Total spent">{rs(r.spent)}</td>
+                <td data-label="Last order">{new Date(r.last_order).toLocaleDateString("en-PK", { day: "numeric", month: "short", year: "numeric" })}</td>
+                <td data-label="Actions"><button className="act delete" title="Delete customer and order history" aria-label={`Delete customer ${r.name}`} onClick={() => remove(r)} disabled={busyPhone === r.phone}><Trash2 size={14} /> Delete</button></td>
               </tr>
             ))}
             {!rows.length && <tr><td colSpan="7" className="empty-row">No customers yet.</td></tr>}
