@@ -7,8 +7,8 @@ import PasswordInput from "../components/PasswordInput";
 
 export default function AdminLogin() {
   const nav = useNavigate();
-  const [u, setU] = useState(""), [p, setP] = useState(""), [err, setErr] = useState(""), [busy, setBusy] = useState(false), [logo, setLogo] = useState(null);
-  useEffect(() => { api.publicSettings().then((settings) => setLogo(settings.logo || null)).catch(() => {}); }, []);
+  const [u, setU] = useState(""), [p, setP] = useState(""), [err, setErr] = useState(""), [busy, setBusy] = useState(false), [logo, setLogo] = useState();
+  useEffect(() => { api.publicSettings().then((settings) => setLogo(settings.logo || null)).catch(() => setLogo(null)); }, []);
   const submit = async (e) => {
     e.preventDefault(); setBusy(true); setErr("");
     try { const r = await api.login(u, p); setToken(r.token); nav("/admin"); }

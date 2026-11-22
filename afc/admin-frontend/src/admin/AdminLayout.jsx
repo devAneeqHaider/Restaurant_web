@@ -15,11 +15,15 @@ const NAV = [
 ];
 
 export default function AdminLayout() {
-  const [logo, setLogo] = useState("");
+  const [logo, setLogo] = useState();
   useEffect(() => {
-    const refreshLogo = () => {
+    const refreshLogo = (event) => {
       if (!getToken()) return;
-      api.getSettings().then((settings) => setLogo(settings.logo || "")).catch(() => {});
+      if (event?.detail && "logo" in event.detail) {
+        setLogo(event.detail.logo || null);
+        return;
+      }
+      api.getSettings().then((settings) => setLogo(settings.logo || null)).catch(() => setLogo(null));
     };
     refreshLogo();
     window.addEventListener("afc-site-logo-updated", refreshLogo);

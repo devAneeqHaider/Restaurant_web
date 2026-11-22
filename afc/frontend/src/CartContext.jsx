@@ -14,7 +14,9 @@ export function CartProvider({ children }) {
   const timer = useRef();
 
   useEffect(() => { localStorage.setItem("afc_cart", JSON.stringify(lines)); }, [lines]);
-  useEffect(() => { api.settings().then(setCfg).catch(() => {}); }, []);
+  useEffect(() => {
+    api.settings().then(setCfg).catch(() => setCfg((current) => ({ ...current, logo: null })));
+  }, []);
 
   const add = (item, qty = 1) => {
     clearTimeout(timer.current);

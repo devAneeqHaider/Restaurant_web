@@ -35,11 +35,12 @@ export default function Profile() {
     body.append("logo", logoFile);
     setLogoMessage({ ok: true, text: "" });
     try {
-      setSiteSettings(await api.saveSettings(body));
+      const updatedSettings = await api.saveSettings(body);
+      setSiteSettings(updatedSettings);
       setLogoFile(null);
       setLogoInputKey((key) => key + 1);
       setLogoMessage({ ok: true, text: "Website logo updated" });
-      window.dispatchEvent(new Event("afc-site-logo-updated"));
+      window.dispatchEvent(new CustomEvent("afc-site-logo-updated", { detail: { logo: updatedSettings.logo || null } }));
     } catch (error) {
       setLogoMessage({ ok: false, text: error.detail || "Could not update website logo" });
     }
