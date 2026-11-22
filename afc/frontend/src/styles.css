@@ -388,8 +388,6 @@ main{animation:fadeUp .55s both}
 .sec-head h2::after{margin-left:0}
 
 /* top announcement bar + glass nav */
-.topbar{background:linear-gradient(90deg,#6e0b08,#c4150f 50%,#e8590c);color:#fff;font-size:.78rem;font-weight:500;display:flex;gap:10px;justify-content:center;align-items:center;padding:7px 12px;letter-spacing:.2px}
-.topbar a{color:#ffe0b8;font-weight:600}.topbar .dot{opacity:.6}
 .nav{background:rgba(255,255,255,.82);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);box-shadow:0 8px 28px rgba(110,30,0,.09);border-bottom:1px solid rgba(255,122,24,.15)}
 .nav-red{background:linear-gradient(90deg,#8f0f0b,#c4150f 60%,#d8401a);backdrop-filter:none}
 .nav-menu{border-bottom:4px solid transparent;border-image:linear-gradient(90deg,#d8201a,#ff7a18) 1}
@@ -492,7 +490,7 @@ main{animation:fadeUp .55s both}
 .login-card{border-radius:26px;background:rgba(255,255,255,.96)}
 
 @media (max-width:980px){.footer-in{grid-template-columns:1fr 1fr}.chip-float.c1{left:0}.chip-float.c2{right:0}.hero{border-radius:0 0 36px 36px}}
-@media (max-width:640px){.hide-sm{display:none}.footer-in{grid-template-columns:1fr}.footer{border-radius:30px 30px 0 0}.topbar{font-size:.72rem}}
+@media (max-width:640px){.hide-sm{display:none}.footer-in{grid-template-columns:1fr}.footer{border-radius:30px 30px 0 0}}
 
 /* ═════════ v3 – floating navbar with a rotating multicolor ring around the WHOLE bar ═════════ */
 .nav,.nav.nav-red,.nav.nav-menu{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border:0;border-image:none;padding:10px 16px 0}
@@ -567,7 +565,7 @@ main{animation:fadeUp .55s both}
 /* splash: animations wait until it is really on screen */
 .splash:not(.splash-run) *{animation-play-state:paused!important}
 
-/* Home page: navbar hero card ke UPAR float karta hai, isliye hero seedha topbar ko touch karta hai.
+/* Home page: navbar hero card ke UPAR float karta hai.
    Header ki height 0 hoti hai (pill overflow hoti hai), is liye mobile par bhi gap nahi aata. */
 .nav.nav-over{height:0;padding-top:0}
 .nav.nav-over .nav-in{top:10px}
@@ -662,7 +660,6 @@ html,body,#root{max-width:100%;overflow-x:clip}
   .icon-btn{min-width:40px;min-height:40px}
 
   /* The header remains easy to operate with one hand without overflowing. */
-  .topbar{min-height:32px;justify-content:center;gap:7px;padding:6px 10px;font-size:.69rem;text-align:center}
   .nav,.nav.nav-red,.nav.nav-menu{padding:8px 10px 0}
   .nav-in{display:grid;grid-template-columns:minmax(0,1fr) auto;width:100%;max-width:none;min-height:64px;gap:6px;justify-content:normal;border-radius:22px;padding:7px 10px}
   .nav-in>.links{display:none!important}
@@ -765,7 +762,6 @@ html,body,#root{max-width:100%;overflow-x:clip}
 }
 
 @media (max-width:390px){
-  .topbar{font-size:.64rem}.topbar .dot{display:none}
   .nav-in{padding-inline:8px}.nav .logo-mark-frame{width:38px!important;height:38px!important}
   .nav .logo-text small{display:none}.nav .logo-text b{font-size:1.22rem}
   .nav-right .nav-ic{display:none}.nav-right .nav-ic:has(+ .cart-pill){display:grid}
@@ -796,4 +792,23 @@ html,body,#root{max-width:100%;overflow-x:clip}
   .hero-stats li{gap:5px;padding:5px 9px;border-radius:10px}
   .hero-stats svg{width:14px;height:14px;flex:none}
   .hero-stats span{line-height:1.12}
+}
+
+/* Consistent browse and menu cards: variable image or text lengths never move
+   the buying controls away from the bottom edge of a card. */
+.cat-grid,.food-grid{align-items:stretch;grid-auto-rows:1fr}
+.cat-card,.food-card{height:100%;min-width:0}
+.cat-card .cat-photo,.cat-card .cat-photo-cake,.cat-card .cat-photo-pizza{height:164px;flex:0 0 164px;margin-bottom:10px}
+.cat-card b{display:grid;place-items:center;min-height:2.55em;padding-inline:10px;text-align:center;line-height:1.25}
+.cat-card small{min-height:1.8em;text-align:center}
+.food-card .food-body{min-height:0;flex:1}
+.food-card .food-body h3{display:-webkit-box;min-height:2.5em;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.food-card .food-body>p{flex:0 0 auto}
+.food-card .price-row{flex:none;margin-top:auto}
+.food-card .add-btn{flex:none;margin-top:0}
+
+@media (max-width:768px){
+  .cat-card .cat-photo,.cat-card .cat-photo-cake,.cat-card .cat-photo-pizza{height:112px;flex-basis:112px;margin-bottom:9px}
+  .cat-card b{min-height:2.5em;padding-inline:7px}
+  .food-card .food-body h3{min-height:2.5em}
 }
